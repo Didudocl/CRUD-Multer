@@ -117,7 +117,7 @@ export async function getForm(req, res) {
   
           // Envía un mensaje de éxito junto con los datos del formulario eliminado
           res.status(200).json({
-              message: "Formulario eliminado!", // Envía un mensaje de éxito
+              message: "Formulario no eliminado!", // Envía un mensaje de éxito
               data: formDeleted // Envía los datos del formulario eliminado
           });
       } catch (error) {
