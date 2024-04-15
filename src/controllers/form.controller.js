@@ -1,5 +1,6 @@
 import Form from '../models/form.model.js'
 import {HOST, PORT} from '../config/configEnv.js'
+
 export async function createForm(req, res) {
     try {
         
@@ -33,7 +34,7 @@ export async function createForm(req, res) {
 }
 
   // Función para obtener un archivo
-export const getArchive = async (req, res) => {
+export async function getArchive(req, res) {
     try {
       // Obtiene el nombre del archivo de los parámetros de la solicitud
       const filename = req.params.filename;
@@ -44,7 +45,9 @@ export const getArchive = async (req, res) => {
       res.download(file, (err) => {
         if (err) {
           // Si hay un error al descargar el archivo, envía un código de estado 404 (No Encontrado)
-          res.status(404).send('Archivo no encontrado');
+          res.status(404).json({
+            message: "Archivo no encontrado"
+          })
         }
       });
     } catch (error) {
@@ -77,11 +80,11 @@ export async function getForm(req, res) {
   export async function updateForm(req, res) {
       try {
           const id = req.params.id; // Obtiene el ID del formulario a actualizar de los parámetros de la solicitud
-          console.log("id:", id);
+
           const archivo = req.files['archivo'][0].filename; // Obtiene el nombre del archivo cargado
-          console.log("Archivo: ", archivo);
+
           const URL = `http://${HOST}:${PORT}/api/form/src/upload/`; // Define la URL base para los archivos
-          console.log("URL: ", URL);
+
           // Actualiza la entidad Form en la base de datos
           const formUpdated = await Form.findOneAndUpdate({ _id: id }, // Busca el formulario por su ID
           {
