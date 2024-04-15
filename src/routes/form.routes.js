@@ -36,10 +36,10 @@ const upload = multer({
 });
 
 // Rutas
-router.post('/', upload.fields([{ name: 'archivo', maxCount: 1 }]), (req, res) => {res.status(400).json({message: "El tamaño del archivo excede el límite permitido de 1 MB"})}, createForm);
+router.post('/', upload.fields([{ name: 'archivo', maxCount: 1 }]), createForm);
 router.get('/:id', getForm);
 router.get('/src/upload/:filename', getArchive);
-router.put('/:id', upload.fields([{ name: 'archivo', maxCount: 1 }]),(req, res) => {res.status(400).json({message: "El tamaño del archivo excede el límite permitido de 1 MB"})}, updateForm);
+router.put('/:id', upload.fields([{ name: 'archivo', maxCount: 1 }]), updateForm);
 router.delete('/:id', deleteForm);
 
 // Exportar el enrutador
